@@ -1,0 +1,88 @@
+---
+title: "Advanced bioinformatics 9522"
+date: "May 8, 2020"
+output: html_document
+---
+
+## Task 1
+
+```{r}
+sum(5:55)
+```
+sum() is r-builtin function which takes vector as input and outputs sum of all elements in the vector. Using :operator I could create a vector that includes all integers from 5 to 55
+
+## Task 2
+
+```{r}
+sumfun<-function(n){
+  sum(5:n)
+}
+sumfun(10)
+sumfun(20)
+sumfun(100)
+```
+sumfun function takes argument n and calculate sum of all integers between 5 to n.
+
+
+## Task 3
+```{r}
+number_of_entries <- 12
+fibonacci <- numeric(number_of_entries)
+fibonacci[1] <- 1
+fibonacci[2] <- 1
+for (i in 3:number_of_entries) { 
+   fibonacci[i] <- fibonacci[i-1]+fibonacci[i-2]
+}
+fibonacci
+```
+Fibonacci series is calculated as the sum of the two preceding members of the sequence, where the first two steps in the sequence are 1, 1. 
+Creating for loop we iterate over the fibonacci vector (length of 12) and each time assign new value by summing last two  numbers.
+
+
+## Task 4
+
+```{r}
+library(ggplot2)
+data("mtcars")
+ggplot(mtcars,aes(as.factor(gear),mpg,fill = as.factor(gear)))+geom_boxplot()+labs(title = "Mile per galon per vs Gear",x="Number of Gear",y="Mile per galon",fill = "Gear colors")
+
+
+```
+ggplot is library which is used to make plots. Here is boxplot and we see that mile per galon is different by geear
+
+
+## Task 5
+```{r}
+data(cars)
+model<-lm(speed~dist, data = cars)
+summary(model)
+```
+The command lm() is used to find linear relationship between variables we provide.
+The intercept and slope between the variables are outputs of the function.
+The intercept and of the linear model is 8.28 with 0.87438 standard error  and the slope is 0.16 with 0.01749 error. There are 2 features in the dataset 
+
+
+## Task 6
+Use ggplot to plot the data points from Task 6 and the linear fit.
+
+```{r}
+ggplot(cars,aes(dist,speed))+geom_point()+geom_smooth(method='lm',se=F)+ggtitle("Linear relationship Speed vs Distance")
+
+
+```
+geom_smooth function from ggplot fits line using linear model's slope and intercept.
+
+
+## Task 7
+```{r}
+cars$ft_per_second<-((cars$speed*5280)/3600)
+model <- lm(dist~ft_per_second**2,data=cars)
+summary(model)
+```
+Speed was given  mile per hour as it is required to do analysis for for seconds and with distance. I created new feature ft_per_second by multiplying vector with 5280 to get fits and divided it into 3600 to get seconds. Afterwards, conducted linear regression where dist feature is dependent variable and ft_per_second is independent.
+R-square is 0.64 which means our model explains 64% of variation in dependent variable. And one unit increase in speed per second increases necessary distance  to have by 2.6812.
+
+
+
+
+
